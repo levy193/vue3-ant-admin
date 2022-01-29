@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <router-view/>
+  <div class="main-404">
+    .
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: '404-page'
 }
 </script>

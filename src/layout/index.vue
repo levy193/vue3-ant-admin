@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <router-view/>
+  <div class="main-layout">
+    .layout
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'layout-component'
 }
 </script>
