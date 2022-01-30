@@ -1,11 +1,24 @@
 <template>
   <div class="main-home">
-    aaa
+      <a-date-picker v-model:value="value1" />
+      <a-month-picker v-model:value="value2" placeholder="Select month" />
+      <a-range-picker v-model:value="value3" />
+      <a-week-picker v-model:value="value4" placeholder="Select week" />
   </div>
 </template>
 
 <script>
-export default {
-  name: 'home-page'
-}
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'home-page',
+  setup() {
+    return {
+      value1: ref(),
+      value2: ref(),
+      value3: ref([]),
+      value4: ref(),
+    };
+  },
+})
 </script>
