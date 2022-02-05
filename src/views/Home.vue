@@ -1,16 +1,16 @@
 <template>
-  <div class="main-home">
-      <a-date-picker v-model:value="value1" />
-      <a-month-picker v-model:value="value2" placeholder="Select month" />
-      <a-range-picker v-model:value="value3" />
-      <a-week-picker v-model:value="value4" placeholder="Select week" />
-  </div>
+<div class="main-home">
+    <a-date-picker v-model:value="value1" />
+    <a-month-picker v-model:value="value2" placeholder="Select month" />
+    <a-range-picker v-model:value="value3" />
+    <a-week-picker v-model:value="value4" placeholder="Select week" />
+</div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
+export default ({
   name: 'home-page',
   setup() {
     return {
@@ -22,3 +22,8 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.main-home {}
+</style>
+

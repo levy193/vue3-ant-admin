@@ -23,7 +23,8 @@ import {
   Select,
   Slider,
   Switch,
-  TimePicker
+  TimePicker,
+  ConfigProvider
 } from 'ant-design-vue'
 
 import App from './App.vue'
@@ -34,7 +35,7 @@ const app = Vue.createApp(App)
 app.use(router)
 app.use(store)
 
-// Antd
+// Ant design
 app.use(Button)
 app.use(Icon)
 app.use(Typography)
@@ -59,6 +60,7 @@ app.use(Select)
 app.use(Slider)
 app.use(Switch)
 app.use(TimePicker)
+app.use(ConfigProvider)
 
 // Mount app
 app.mount('#app')

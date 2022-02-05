@@ -9,22 +9,19 @@ const routes = [
     path: '/error',
     component: () => import('@/layout/index'),
     redirect: 'noRedirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'Error Pages',
-      icon: '404'
-    },
+    name: 'ErrorPage',
+    meta: { title: 'Error Pages' },
     children: [
       {
         path: '401',
         component: () => import('@/views/error-page/401'),
-        name: 'Page-401',
+        name: 'Page401',
         meta: { title: '401', noCache: true }
       },
       {
         path: '404',
         component: () => import('@/views/error-page/404'),
-        name: 'Page-404',
+        name: 'Page404',
         meta: { title: '404', noCache: true }
       }
     ]
