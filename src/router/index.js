@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+const modules = import.meta.globEager('./modules/*.js')
+const appRoutes = []
+Object.keys(modules).forEach(key => {
+  appRoutes.push(modules[key].default)
+})
+
 const routes = [
   {
     path: '/',
@@ -9,23 +15,24 @@ const routes = [
     path: '/error',
     component: () => import('@/layout/index.vue'),
     redirect: 'noRedirect',
-    name: 'ErrorPage',
+    name: 'error-page',
     meta: { title: 'Error Pages' },
     children: [
       {
         path: '401',
         component: () => import('@/views/error-page/401.vue'),
-        name: 'Page401',
+        name: '401-page',
         meta: { title: '401', noCache: true }
       },
       {
         path: '404',
         component: () => import('@/views/error-page/404.vue'),
-        name: 'Page404',
+        name: '404-page',
         meta: { title: '404', noCache: true }
       }
     ]
-  }
+  },
+  ...appRoutes
 ]
 
 const router = createRouter({

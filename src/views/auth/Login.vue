@@ -1,5 +1,7 @@
 <template>
-<div class="main-login"></div>
+<div class="main-login">
+  .login
+</div>
 </template>
 
 <script>
@@ -19,7 +21,5 @@ export default {
 </script>
 
 <style lang="scss">
-.main-login {
-  background-color: $base-color;
-}
+.main-login {}
 </style>

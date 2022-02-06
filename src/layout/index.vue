@@ -1,6 +1,7 @@
 <template>
   <div class="main-layout">
     .layout
+    <router-view />
   </div>
 </template>
 
