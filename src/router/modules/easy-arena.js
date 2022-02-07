@@ -6,10 +6,5 @@ export default {
     redirect: 'noRedirect',
     component: Layout,
     meta: {},
-    children: [
-      {
-        path: 'login',
-        component: () => import('@/views/auth/Login.vue')
-      }
-    ]
+    children: []
 }
