@@ -2,3 +2,4 @@ jsconfig.json
 dist
 public
 node_modules
+.gitignore
