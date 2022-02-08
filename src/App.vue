@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-config-provider :locale="vi_VN">
-      <router-view/>
+      <router-view />
     </a-config-provider>
 
     <VueQueryDevTools />

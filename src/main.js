@@ -6,7 +6,7 @@ import Antd from 'ant-design-vue'
 // Devtool
 
 // Styles
-import '@/styles/index.scss';
+import '@/styles/index.scss'
 
 import App from './App.vue'
 import router from './router'
