@@ -12,6 +12,16 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
   {
+    path: '/apps',
+    component: () => import('@/views/apps/App.vue'),
+    meta: { title: 'Apps' }
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/auth/Login.vue'),
+    meta: { title: 'Login' }
+  },
+  {
     path: '/error',
     component: () => import('@/layout/index.vue'),
     redirect: 'noRedirect',

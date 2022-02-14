@@ -8,16 +8,19 @@
     "lint": "eslint --ext .js,.vue --fix src"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "core-js": "^3.21.0",
+    "js-cookie": "^3.0.1",
+    "less": "^4.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.11",
     "unplugin-vue-components": "^0.17.18",
-    "vue": "^3.2.30",
-    "vue-query": "^1.19.0",
+    "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {

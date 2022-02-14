@@ -1,7 +1,5 @@
 import * as Vue from 'vue'
 import { createPinia } from 'pinia'
-import { VueQueryPlugin } from 'vue-query'
-import Antd from 'ant-design-vue'
 
 // Devtool
 
@@ -10,12 +8,14 @@ import '@/styles/index.scss'
 
 import App from './App.vue'
 import router from './router'
+import Antd from 'ant-design-vue'
 
 const app = Vue.createApp(App)
-app.use(router)
 app.use(createPinia())
-app.use(VueQueryPlugin)
+app.use(router)
 app.use(Antd)
+
+import './permission'
 
 // Mount app
 app.mount('#app')

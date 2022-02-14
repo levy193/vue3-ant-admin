@@ -3,15 +3,16 @@ import { notification } from 'ant-design-vue'
 import { useAccountStore } from '@/store/account'
 import { get } from 'lodash'
 
-const accountStore = useAccountStore()
 
-const service = axios.create({
-  baseURL: '',
-  timeout: 30000
-})
+const service = axios.create()
 
 service.interceptors.request.use(
   config => {
+    const accountStore = useAccountStore()
+
+    config.baseURL = accountStore.app ? accountStore.app.baseApi : import.meta.env.VITE_BASE_API,
+    config.timeout = 10000
+
     if (accountStore.accessToken) {
       config.headers['Authorization'] = 'Bearer ' + accountStore.accessToken
     }
@@ -34,13 +35,13 @@ service.interceptors.response.use(
 
       return Promise.reject(new Error(message))
     } else {
-      return res
+      return response
     }
   },
   error => {
     notification.error({
-      message: 'Lỗi !',
-      description: get(error, 'response.data.error.message') || error.message || '???'
+      message: 'Error',
+      description: get(error, 'response.data.error.msg') || error.message || '???'
     })
 
     return Promise.reject(error)
