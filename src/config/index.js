@@ -8,7 +8,7 @@ export default {
       id: 'easy-arena',
       name: 'Easy Arena',
       baseApi: import.meta.env.VITE_EASY_ARENA_BASE_API,
-      baseMedia: import.meta.env.VITE_EASY_ARENA_BASE_MEDIA,
+      mediaHost: import.meta.env.VITE_EASY_ARENA_BASE_MEDIA,
       logo: easyArenaLogo
     }
   ]

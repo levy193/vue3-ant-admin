@@ -3,6 +3,7 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import vue from '@vitejs/plugin-vue'
 import eslintPlugin from 'vite-plugin-eslint'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' 
 import path from 'path'
 
 Components({
@@ -14,7 +15,12 @@ Components({
 export default defineConfig({
   plugins: [
     vue(),
-    eslintPlugin()
+    eslintPlugin(),
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      symbolId: 'icon-[dir]-[name]',
+      customDomId: '_svg_icons_'
+    })
   ],
   resolve: {
     alias: {

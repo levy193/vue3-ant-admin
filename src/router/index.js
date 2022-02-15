@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const modules = import.meta.globEager('./modules/*.js')
-const appRoutes = []
-Object.keys(modules).forEach(key => {
-  appRoutes.push(modules[key].default)
-})
+// const modules = import.meta.globEager('./modules/*.js')
+// const appRoutes = []
+// Object.keys(modules).forEach(key => {
+//   appRoutes.push(modules[key].default)
+// })
 
 const routes = [
   {
@@ -37,8 +37,7 @@ const routes = [
         meta: { title: '404', noCache: true }
       }
     ]
-  },
-  ...appRoutes
+  }
 ]
 
 const router = createRouter({

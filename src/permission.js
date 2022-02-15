@@ -25,7 +25,9 @@ router.beforeEach(async (to, from, next) => {
 
   if (token) {
     accountStore.setAccessToken(token)
-    accountStore.setApp(appId)
+    if (accountStore.appId !== appId) {
+      accountStore.setApp(appId)
+    }
 
     if (to.path === '/login') {
       next({ path: '/' })
@@ -33,6 +35,10 @@ router.beforeEach(async (to, from, next) => {
     } else {
       if (accountStore.account) {
         if (to.path === '/' || (accountStore.appId && appIds.includes(accountStore.appId))) {
+          if (!accountStore.isGeneratedRouter) {
+            const accessibleRoutes = await accountStore.generateRoutes()
+            router.addRoute(accessibleRoutes)
+          }
           next()
         } else {
           accountStore.setApp(null)
@@ -44,6 +50,10 @@ router.beforeEach(async (to, from, next) => {
           await accountStore.getProfile()
   
           if (accountStore.appId && appIds.includes(accountStore.appId)) {
+            if (!accountStore.isGeneratedRouter) {
+              const accessibleRoutes = await accountStore.generateRoutes()
+              router.addRoute(accessibleRoutes)
+            }
             next({ ...to, replace: true })
           } else {
             accountStore.setApp(null)

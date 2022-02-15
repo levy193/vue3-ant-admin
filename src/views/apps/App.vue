@@ -1,3 +1,22 @@
+<script setup>
+import { useRouter } from 'vue-router'
+import { useAccountStore } from '@/store/account'
+import config from '@/config'
+
+const accountStore = useAccountStore()
+const router = useRouter()
+
+const apps = config.apps
+
+function selectApp(app) {
+  accountStore.setApp(app.id)
+  router.push({
+    path: `/${app.id}`,
+    replace: true
+  })
+}
+</script>
+
 <template>
   <div class="app-select-main">
     <a-row type="flex" justify="space-around">
@@ -17,25 +36,6 @@
     </a-row>
   </div>
 </template>
-
-<script setup>
-import { useRouter } from 'vue-router'
-import { useAccountStore } from '@/store/account'
-import config from '@/config'
-
-const accountStore = useAccountStore()
-const router = useRouter()
-
-const apps = config.apps
-
-function selectApp(app) {
-  accountStore.setApp(app.id)
-  router.push({
-    path: `/${app.id}`,
-    replace: true
-  })
-}
-</script>
 
 <style lang="scss">
 .app-select-main {

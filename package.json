@@ -20,6 +20,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.11",
     "unplugin-vue-components": "^0.17.18",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },
@@ -47,9 +48,7 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {
-      
-    }
+    "rules": {}
   },
   "browserslist": [
     "> 1%",

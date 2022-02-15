@@ -1,42 +1,3 @@
-<template>
-  <div class="login-main">
-    <a-row type="flex" justify="center">
-      <a-col :span="8" class="login-section">
-        <a-card title="Đăng nhập vào hệ thống">
-          <a-form :model="account">
-            <a-form-item label="Tài khoản">
-              <a-input
-                ref="usernameRef"
-                v-model:value="account.username"
-              />
-            </a-form-item>
-            <a-form-item label="Mật khẩu">
-              <a-input
-                :type="passwordType"
-                v-model:value="account.password"
-              >
-                <template #suffix>
-                  <EyeOutlined v-if="passwordType === 'password'" @click="showHidePassword"/>
-                  <EyeInvisibleOutlined v-else @click="showHidePassword" />
-                </template>
-              </a-input>
-            </a-form-item>
-            <a-row type="flex" justify="end">
-              <a-button
-                type="primary"
-                :loading="loading"
-                @click.prevent="login"
-              >
-                Đăng nhập
-              </a-button>
-            </a-row>
-          </a-form>
-        </a-card>
-      </a-col>
-    </a-row>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -89,6 +50,45 @@ async function login() {
   }
 }
 </script>
+
+<template>
+  <div class="login-main">
+    <a-row type="flex" justify="center">
+      <a-col :span="8" class="login-section">
+        <a-card title="Đăng nhập vào hệ thống">
+          <a-form :model="account">
+            <a-form-item label="Tài khoản">
+              <a-input
+                ref="usernameRef"
+                v-model:value="account.username"
+              />
+            </a-form-item>
+            <a-form-item label="Mật khẩu">
+              <a-input
+                :type="passwordType"
+                v-model:value="account.password"
+              >
+                <template #suffix>
+                  <EyeOutlined v-if="passwordType === 'password'" @click="showHidePassword"/>
+                  <EyeInvisibleOutlined v-else @click="showHidePassword" />
+                </template>
+              </a-input>
+            </a-form-item>
+            <a-row type="flex" justify="end">
+              <a-button
+                type="primary"
+                :loading="loading"
+                @click.prevent="login"
+              >
+                Đăng nhập
+              </a-button>
+            </a-row>
+          </a-form>
+        </a-card>
+      </a-col>
+    </a-row>
+  </div>
+</template>
 
 <style lang="scss">
 .login-main {
