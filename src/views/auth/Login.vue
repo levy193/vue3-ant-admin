@@ -73,7 +73,7 @@ async function login() {
     try {
       await accountStore.login(account.value)
       router.push({
-        path: '/apps',
+        path: '/',
         replace: true
       })
     } catch (error) {

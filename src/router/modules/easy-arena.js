@@ -3,8 +3,13 @@ import Layout from '@/layout/index.vue'
 export default {
     path: '/easy-arena',
     name: 'easy-arena-page',
-    redirect: 'noRedirect',
+    redirect: '',
     component: Layout,
     meta: {},
-    children: []
+    children: [{
+      path: '',
+      meta: { title: 'Easy Arena' },
+      name: 'EasyArenaHome',
+      component: () => import('@/views/easy-arena/HomePage.vue')
+    }]
 }

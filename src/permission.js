@@ -2,14 +2,14 @@ import router from './router'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
 import { notification } from 'ant-design-vue'
-import { getToken } from '@/utils/token'
+import { getToken, getAppId } from '@/utils/cookie'
 import getPageTitle from '@/utils/get-page-title'
 import { useAccountStore } from '@/store/account'
 import config from '@/config'
 
 NProgress.configure({ showSpinner: false })
 
-const appIds = config.apps.map(app =>  app.id)
+const appIds = config.apps.map(app => app.id)
 const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
@@ -20,33 +20,35 @@ router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   const token = getToken()
+  const appId = getAppId()
   const accountStore = useAccountStore()
 
   if (token) {
     accountStore.setAccessToken(token)
+    accountStore.setApp(appId)
 
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
     } else {
       if (accountStore.account) {
-        if (to.path === '/apps' || (accountStore.appId && appIds.includes(appIds))) {
+        if (to.path === '/' || (accountStore.appId && appIds.includes(accountStore.appId))) {
           next()
         } else {
           accountStore.setApp(null)
-          next('/apps')
+          next('/')
           NProgress.done()
         }
       } else {
         try {
           await accountStore.getProfile()
   
-          if (accountStore.appId && appIds.includes(appIds)) {
+          if (accountStore.appId && appIds.includes(accountStore.appId)) {
             next({ ...to, replace: true })
           } else {
             accountStore.setApp(null)
             next({
-              path: '/apps',
+              path: '/',
               replace: true
             })
           }

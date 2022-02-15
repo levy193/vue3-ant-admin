@@ -9,10 +9,6 @@ Object.keys(modules).forEach(key => {
 const routes = [
   {
     path: '/',
-    component: () => import('@/views/Home.vue')
-  },
-  {
-    path: '/apps',
     component: () => import('@/views/apps/App.vue'),
     meta: { title: 'Apps' }
   },

@@ -1,6 +1,8 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import * as userApi from '@/api/account'
-import { setToken, removeToken } from '@/utils/token'
+import { setToken, removeToken, setAppId, removeAppId } from '@/utils/cookie'
+import _ from 'lodash'
+import config from '@/config'
 
 export const useAccountStore = defineStore({
   id: 'account',
@@ -16,9 +18,19 @@ export const useAccountStore = defineStore({
   getters: {},
 
   actions: {
-    setApp(app) {
-      this.appId = app ? app.id : null
-      this.app = app
+    setApp(appId) {
+      if (appId) {
+        this.appId = appId
+        const index = _.findIndex(config.apps, v => {
+          return v.id === appId
+        })
+
+        if (index > -1) {
+          this.app = config.apps[index]
+        }
+
+        setAppId(appId)
+      }
     },
 
     setAccessToken(accessToken) {
@@ -46,6 +58,7 @@ export const useAccountStore = defineStore({
 
     resetToken() {
       removeToken()
+      removeAppId()
       this.accessToken = null
       this.account = null
       this.roles = []

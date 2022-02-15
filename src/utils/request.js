@@ -9,8 +9,7 @@ const service = axios.create()
 service.interceptors.request.use(
   config => {
     const accountStore = useAccountStore()
-
-    config.baseURL = accountStore.app ? accountStore.app.baseApi : import.meta.env.VITE_BASE_API,
+    config.baseURL = config.baseURL || (accountStore.app ? accountStore.app.baseApi : import.meta.env.VITE_BASE_API)
     config.timeout = 10000
 
     if (accountStore.accessToken) {

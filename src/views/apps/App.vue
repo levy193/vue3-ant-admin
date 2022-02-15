@@ -1,29 +1,47 @@
 <template>
-  <div class="app-main">
-    <a-button @click.prevent="login">Đăng nhập</a-button>
+  <div class="app-select-main">
+    <a-row type="flex" justify="space-around">
+      <a-card
+        v-for="app in apps"
+        :key="app.id"
+        hoverable
+        @click.prevent="selectApp(app)"
+        style="width: 200px"
+      >
+        <template #cover>
+          <img :src="app.logo" />
+        </template>
+
+        <a-card-meta :title="app.name" />
+      </a-card>
+    </a-row>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { isEmptyString } from '@/utils/lib'
+import { useRouter } from 'vue-router'
+import { useAccountStore } from '@/store/account'
+import config from '@/config'
 
-let loginLoading = ref(false)
+const accountStore = useAccountStore()
+const router = useRouter()
 
-const account = {
-  username: ref(String),
-  password: ref(String)
-}
+const apps = config.apps
 
-async function login() {
-  if (!isEmptyString(account.username.value) || !isEmptyString(account.password.value)) {
-    loginLoading.value = true
-    loginLoading.value = false
-  } else {
-    this.$notification .open({
-      message: 'Oops!',
-      description: 'Tài khoản và mật khẩu không thể để trống.'
-    })
-  }
+function selectApp(app) {
+  accountStore.setApp(app.id)
+  router.push({
+    path: `/${app.id}`,
+    replace: true
+  })
 }
 </script>
+
+<style lang="scss">
+.app-select-main {
+  height: 100vh;
+  width: 100%;
+  background: $bg;
+  padding: 10vh 10vw;
+}
+</style>
