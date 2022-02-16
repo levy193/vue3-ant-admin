@@ -11,7 +11,7 @@ const apps = config.apps
 function selectApp(app) {
   accountStore.setApp(app.id)
   router.push({
-    path: `/${app.id}`,
+    path: `/`,
     replace: true
   })
 }

@@ -18,8 +18,7 @@ export default defineConfig({
     eslintPlugin(),
     createSvgIconsPlugin({
       iconDirs: [path.resolve(process.cwd(), 'src/icons')],
-      symbolId: 'icon-[dir]-[name]',
-      customDomId: '_svg_icons_'
+      symbolId: 'icon-[dir]-[name]'
     })
   ],
   resolve: {

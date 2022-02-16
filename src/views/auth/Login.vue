@@ -20,7 +20,7 @@ onMounted(() => {
   usernameRef.value.focus()
 })
 
-function showHidePassword() {
+const showHidePassword = () => {
   if (passwordType.value === 'password') {
     passwordType.value = 'text'
   } else {
@@ -28,7 +28,7 @@ function showHidePassword() {
   }
 }
 
-async function login() {
+const login = async () => {
   if (!isEmptyString(account.value.username) || !isEmptyString(account.value.password)) {
     loading.value = true
     try {

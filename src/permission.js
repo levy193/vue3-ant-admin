@@ -12,7 +12,7 @@ NProgress.configure({ showSpinner: false })
 const appIds = config.apps.map(app => app.id)
 const whiteList = ['/login']
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
   // Start progress bar
   NProgress.start()
 
@@ -30,57 +30,52 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done()
-    } else {
-      if (accountStore.account) {
-        if (to.path === '/' || (accountStore.appId && appIds.includes(accountStore.appId))) {
-          if (!accountStore.isGeneratedRouter) {
-            const accessibleRoutes = await accountStore.generateRoutes()
-            router.addRoute(accessibleRoutes)
-          }
-          next()
-        } else {
-          accountStore.setApp(null)
-          next('/')
-          NProgress.done()
+      return '/'
+    }
+
+    if (accountStore.account) {
+      if (to.path === '/apps') {
+        return true
+      }
+      
+      if (accountStore.appId && appIds.includes(accountStore.appId)) {
+        if (!accountStore.isGeneratedRouter) {
+          await accountStore.generateRoutes()
+          return to.fullPath
         }
-      } else {
-        try {
-          await accountStore.getProfile()
-  
-          if (accountStore.appId && appIds.includes(accountStore.appId)) {
-            if (!accountStore.isGeneratedRouter) {
-              const accessibleRoutes = await accountStore.generateRoutes()
-              router.addRoute(accessibleRoutes)
-            }
-            next({ ...to, replace: true })
-          } else {
-            accountStore.setApp(null)
-            next({
-              path: '/',
-              replace: true
-            })
-          }
-        } catch (error) {
-          accountStore.resetToken()
-          notification.error({
-            message: 'Error',
-            description: error.message || error
-          })
-          next('/login')
-          NProgress.done()
-        }
+
+        return true
       }
     }
-  } else {
-    if (whiteList.includes(to.path)) {
-      next()
-    } else {
-      next(`/login`)
-      NProgress.done()
+
+    try {
+      await accountStore.getProfile()
+      if (accountStore.appId && accountStore.app) {
+        if (!accountStore.isGeneratedRouter) {
+          await accountStore.generateRoutes()
+          return to.fullPath
+        }
+
+        return true
+      }
+
+      return '/apps'
+    } catch (error) {
+      accountStore.resetToken()
+      notification.error({
+        message: 'Error',
+        description: error.message || error
+      })
+
+      return '/login'
     }
   }
+
+  if (whiteList.includes(to.path)) {
+    return true
+  }
+
+  return '/login'
 })
 
 router.afterEach(() => {

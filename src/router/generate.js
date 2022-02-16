@@ -1,4 +1,6 @@
 import { findIndex, set } from 'lodash'
+import { asyncRoutes } from '@/router'
+import router from '@/router'
 
 const clearRouter = router => {
   if (router.children && router.children.length > 0) {
@@ -24,7 +26,7 @@ const clearRouter = router => {
 
 export default async function(appId, userRoles, roles) {
   const modules = (await import(`../views/${appId}/dynamic/router.config.js`)).default
-  const appRouter = (await import(`../router/modules/${appId}.js`)).default
+  const appRoutes = (await import(`../router/modules/${appId}.js`)).default
 
   const routers = {
     children: []
@@ -78,7 +80,7 @@ export default async function(appId, userRoles, roles) {
       let selector = routers
       let route = ''
       for (let i = 0; i < components.length - 1; i++) {
-        const index = findIndex(selector.children, d => d.id === components[i])
+        const index = findIndex(selector.children, d => d.id === `${appId}-${components[i]}`)
         selector = selector.children[index]
         route += `children[${index}]`
       }
@@ -90,9 +92,14 @@ export default async function(appId, userRoles, roles) {
     }
   }
 
+
   clearRouter(routers)
 
-  appRouter.children = appRouter.children.concat(...routers.children)
+  const routes = appRoutes.concat(...routers.children).concat(...asyncRoutes)
 
-  return appRouter
+  routes.forEach(route => {
+    router.addRoute(route)
+  })
+
+  return routes
 }

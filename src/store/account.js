@@ -5,6 +5,7 @@ import _ from 'lodash'
 import config from '@/config'
 import { compositeGetApi } from '@/api/composite'
 import generateDynamicRouter from '@/router/generate'
+import { resetRouter } from '@/router'
 
 export const useAccountStore = defineStore({
   id: 'account',
@@ -37,37 +38,29 @@ export const useAccountStore = defineStore({
       })
       this.appRoles = appRolesRes.data || []
 
-      let accessibleRoutes = []
       const routes = await generateDynamicRouter(this.appId, this.roles, this.appRoles)
 
-      if (this.roles.includes('super-admin') || this.roles.includes(`${this.appId}-admin`)) {
-        accessibleRoutes = routes
-      } else {
-        accessibleRoutes = this.filterRoutes(routes, this.roles)
-      }
-
-      this.routes = accessibleRoutes.children
+      this.routes = routes
       this.isGeneratedRouter = true
 
-      return accessibleRoutes
+      return routes
     },
 
     setApp(appId) {
-      if (appId) {
-        this.appId = appId
-        const index = _.findIndex(config.apps, v => {
-          return v.id === appId
-        })
+      this.appId = appId
+      const index = _.findIndex(config.apps, v => {
+        return v.id === appId
+      })
 
-        if (index > -1) {
-          this.app = config.apps[index]
-        }
-
-        this.isGeneratedRouter = false
-        this.routes = []
-
-        setAppId(appId)
+      if (index > -1) {
+        this.app = config.apps[index]
       }
+
+      this.isGeneratedRouter = false
+      this.routes = []
+
+      setAppId(appId)
+      resetRouter()
     },
 
     setAccessToken(accessToken) {
@@ -101,6 +94,7 @@ export const useAccountStore = defineStore({
       this.roles = []
       this.appId = null
       this.app = null
+      resetRouter()
     }
   }
 })

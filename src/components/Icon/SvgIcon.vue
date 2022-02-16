@@ -11,7 +11,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: '#333'
+    default: '#fff'
   }
 })
 
@@ -19,7 +19,15 @@ const symbolId = computed(() => `#${props.prefix}-${props.name}`)
 </script>
 
 <template>
-  <svg aria-hidden="true">
+  <svg aria-hidden="true" class="svg-icon">
     <use :href="symbolId" :fill="color" />
   </svg>
 </template>
+
+<style lang="scss" scoped>
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+}
+</style>
