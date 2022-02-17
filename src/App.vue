@@ -7,9 +7,17 @@ moment.locale('vi')
 </script>
 
 <template>
-  <div>
-    <a-config-provider :locale="vi_VN">
-      <router-view />
-    </a-config-provider>
-  </div>
+  <Suspense>
+    <template #default>
+      <div>
+        <a-config-provider :locale="vi_VN">
+          <router-view />
+        </a-config-provider>
+      </div>
+    </template>
+
+    <template #fallback>
+      <h1>Loading...</h1>
+    </template>
+  </Suspense>
 </template>

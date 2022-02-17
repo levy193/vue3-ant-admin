@@ -5,7 +5,7 @@ import _ from 'lodash'
 import config from '@/config'
 import { compositeGetApi } from '@/api/composite'
 import generateDynamicRouter from '@/router/generate'
-import { resetRouter } from '@/router'
+import { resetRouter, constantRoutes } from '@/router'
 
 export const useAccountStore = defineStore({
   id: 'account',
@@ -17,6 +17,7 @@ export const useAccountStore = defineStore({
     appId: null,
     app: null,
     routes: [],
+    constantRoutes: [],
     isGeneratedRouter: false,
     appRoles: []
   }),
@@ -25,6 +26,8 @@ export const useAccountStore = defineStore({
 
   actions: {
     async generateRoutes() {
+      this.constantRoutes = constantRoutes
+
       if (!this.appId) {
         return []
       }

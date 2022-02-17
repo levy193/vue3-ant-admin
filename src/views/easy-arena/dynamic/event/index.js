@@ -3,6 +3,7 @@ export default {
     path: '/event',
     component: () => import('@/layout/index.vue'),
     name: 'EasyArena-Event-Menu',
+    redirect: '/event/list',
     meta: {
       title: 'Sự kiện',
       icon: 'event',

@@ -1,8 +1,10 @@
 {
     "cSpell.words": [
         "Antd",
+        "browserify",
         "browserslist",
         "Pinia",
+        "sider",
         "unplugin",
         "vite"
     ]

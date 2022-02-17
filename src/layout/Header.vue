@@ -1,18 +1,19 @@
 <script setup>
 import { inject } from 'vue'
-import { useRouter } from 'vue-router'
-
+import { useRouter, useRoute } from 'vue-router'
+import { useAccountStore } from '@/store/account'
 import {
   UserOutlined,
   DownOutlined,
   LogoutOutlined
 } from '@ant-design/icons-vue'
-import { useAccountStore } from '@/store/account'
+import { get } from 'lodash'
 
 const accountStore = useAccountStore()
 const router = useRouter()
-const avatarHost = import.meta.env.VITE_MEDIA_HOST
+const route = useRoute()
 const $filters = inject('$filters')
+const avatarHost = import.meta.env.VITE_MEDIA_HOST
 
 const logout = () => {
   accountStore.resetToken()
@@ -21,11 +22,17 @@ const logout = () => {
 </script>
 
 <template>
-  <a-layout-header>
-    <a-breadcrumb>
-      <a-breadcrumb-item>User</a-breadcrumb-item>
-      <a-breadcrumb-item>Bill</a-breadcrumb-item>
-    </a-breadcrumb>
+  <a-layout-header style="padding: 4px 12px">
+    <a-typography>
+      <a-typography-title
+        v-if="get(route, 'meta.pageTitle')"
+        mark
+        :level="4"
+        style="margin: 0"
+      >
+        {{ route.meta.pageTitle }}
+      </a-typography-title>
+    </a-typography>
 
     <a-space>
       <a-dropdown>

@@ -1,21 +1,18 @@
 export default {
   router: {
     path: 'list',
-    component: () => import('@/views/templates/ListTemplate.vue'),
+    component: () => import('@/views/templates/DynamicTemplate.vue'),
     name: 'EasyArena-Event-List',
     meta: {
-      title: 'Sự kiện',
+      title: 'Danh sách',
+      pageTitle: 'Danh sách sự kiện',
       icon: 'event',
       noCache: true
     }
   },
   view: {
-    models: [
-      {
-        model: 'Event',
-        sort: '-createdAt'
-      }
-    ],
+    models: [],
+    model: 'Event',
     query: {
       _type: 'paginate',
       _search: '',
@@ -32,7 +29,17 @@ export default {
       uploadExcel: false,
       uploadExcelData: {}
     },
-    filters: [],
+    filters: [{
+      name: 'test',
+      placeholder: 'Chọn test',
+      label: 'key',
+      value: 'value',
+      style: 'min-width: 200px',
+      options: [{
+        key: 'Tình yêu',
+        value: 'Love'
+      }]
+    }],
     listProps: [],
     formProps: []
   }

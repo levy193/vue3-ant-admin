@@ -1,12 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// const modules = import.meta.globEager('./modules/*.js')
-// const appRoutes = []
-// Object.keys(modules).forEach(key => {
-//   appRoutes.push(modules[key].default)
-// })
-
-const routes = [
+export const constantRoutes = [
   {
     path: '/apps',
     component: () => import('@/views/apps/App.vue'),
@@ -41,7 +35,7 @@ export const asyncRoutes = [
 
 const createCustomRouter = () => createRouter({
   history: createWebHistory(),
-  routes,
+  routes: constantRoutes,
   scrollBehavior: () => ({ y: 0 })
 })
 
