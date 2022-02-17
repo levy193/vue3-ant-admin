@@ -10,7 +10,8 @@ export default [{
       path: 'home',
       meta: {
         icon: 'home',
-        title: 'Home'
+        title: 'Home',
+        pageTitle: 'Trang chủ'
       },
       name: 'EasyArena-Home',
       component: () => import('@/views/easy-arena/HomePage.vue')

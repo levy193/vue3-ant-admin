@@ -89,6 +89,11 @@ export const useAccountStore = defineStore({
       this.setAccount(response.data.account)
     },
 
+    resetApp() {
+      this.appId = null
+      this.app = null
+    },
+
     resetToken() {
       removeToken()
       removeAppId()

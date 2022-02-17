@@ -5,7 +5,8 @@ import { useAccountStore } from '@/store/account'
 import {
   UserOutlined,
   DownOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  DesktopOutlined
 } from '@ant-design/icons-vue'
 import { get } from 'lodash'
 
@@ -42,6 +43,10 @@ const logout = () => {
         </a>
         <template #overlay>
           <a-menu>
+            <a-menu-item @click="router.push('/apps')">
+              <DesktopOutlined />
+              Ứng dụng
+            </a-menu-item>
             <a-menu-item>
               <UserOutlined />
               Tài khoản
