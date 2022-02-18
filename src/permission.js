@@ -37,7 +37,7 @@ router.beforeEach(async (to) => {
       if (to.path === '/apps') {
         return true
       }
-      
+
       if (accountStore.appId && appIds.includes(accountStore.appId)) {
         if (!accountStore.isGeneratedRouter) {
           await accountStore.generateRoutes()
@@ -61,7 +61,7 @@ router.beforeEach(async (to) => {
 
       return '/apps'
     } catch (error) {
-      accountStore.resetToken()
+      accountStore.logout()
       notification.error({
         message: 'Error',
         description: error.message || error

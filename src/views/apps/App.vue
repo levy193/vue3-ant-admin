@@ -19,6 +19,11 @@ function selectApp(app) {
 
 <template>
   <div class="app-select-main">
+    <a-row style="padding-bottom: 48px">
+      <a-typography-title :level="4">
+        Chọn ứng dụng
+      </a-typography-title>
+    </a-row>
     <a-row type="flex" justify="space-around">
       <a-card
         v-for="app in apps"

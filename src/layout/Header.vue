@@ -9,6 +9,7 @@ import {
   DesktopOutlined
 } from '@ant-design/icons-vue'
 import { get } from 'lodash'
+import SvgIcon from '@/components/Icon/SvgIcon.vue'
 
 const accountStore = useAccountStore()
 const router = useRouter()
@@ -17,7 +18,7 @@ const $filters = inject('$filters')
 const avatarHost = import.meta.env.VITE_MEDIA_HOST
 
 const logout = () => {
-  accountStore.resetToken()
+  accountStore.logout()
   router.push('/login')
 }
 </script>
@@ -27,10 +28,10 @@ const logout = () => {
     <a-typography>
       <a-typography-title
         v-if="get(route, 'meta.pageTitle')"
-        mark
         :level="4"
         style="margin: 0"
       >
+        <svg-icon name="paper-plane" color="#333" style="max-width: 14px; max-height: 14px; margin-right: 6px;"/>
         {{ route.meta.pageTitle }}
       </a-typography-title>
     </a-typography>

@@ -5,7 +5,10 @@ import _ from 'lodash'
 import config from '@/config'
 import { compositeGetApi } from '@/api/composite'
 import generateDynamicRouter from '@/router/generate'
-import { resetRouter, constantRoutes } from '@/router'
+import { constantRoutes } from '@/router'
+import { useCompositeStore } from './composite'
+import router from '@/router'
+import { asyncRoutes } from '@/router'
 
 export const useAccountStore = defineStore({
   id: 'account',
@@ -25,6 +28,55 @@ export const useAccountStore = defineStore({
   getters: {},
 
   actions: {
+    resetRouter() {
+      this.routes.forEach(route => {
+        router.removeRoute(route.name)
+      })
+
+      asyncRoutes.forEach(route => {
+        router.removeRoute(route.name)
+      })
+    },
+
+    resetApp() {
+      this.appId = null
+      this.app = null
+    },
+
+    resetStore() {
+      const compositeStore = useCompositeStore()
+
+      this.$reset()
+      compositeStore.$reset()
+    },
+
+    setApp(appId) {
+      this.appId = appId
+      const index = _.findIndex(config.apps, v => {
+        return v.id === appId
+      })
+
+      if (index > -1) {
+        this.app = config.apps[index]
+      }
+
+      this.isGeneratedRouter = false
+      this.routes = []
+
+      setAppId(appId)
+      this.resetRouter()
+    },
+
+    setAccessToken(accessToken) {
+      this.accessToken = accessToken
+      setToken(accessToken)
+    },
+
+    setAccount(account) {
+      this.account = account
+      this.roles = account.roles || []
+    },
+
     async generateRoutes() {
       this.constantRoutes = constantRoutes
 
@@ -49,33 +101,6 @@ export const useAccountStore = defineStore({
       return routes
     },
 
-    setApp(appId) {
-      this.appId = appId
-      const index = _.findIndex(config.apps, v => {
-        return v.id === appId
-      })
-
-      if (index > -1) {
-        this.app = config.apps[index]
-      }
-
-      this.isGeneratedRouter = false
-      this.routes = []
-
-      setAppId(appId)
-      resetRouter()
-    },
-
-    setAccessToken(accessToken) {
-      this.accessToken = accessToken
-      setToken(accessToken)
-    },
-
-    setAccount(account) {
-      this.account = account
-      this.roles = account.roles || []
-    },
-
     async login({ username, password }) {
       const response = await userApi.login({
         username: username.trim(),
@@ -89,20 +114,13 @@ export const useAccountStore = defineStore({
       this.setAccount(response.data.account)
     },
 
-    resetApp() {
-      this.appId = null
-      this.app = null
-    },
-
-    resetToken() {
+    logout() {
+      // Remove data in cookies, local storage
       removeToken()
       removeAppId()
-      this.accessToken = null
-      this.account = null
-      this.roles = []
-      this.appId = null
-      this.app = null
-      resetRouter()
+
+      this.resetRouter()
+      this.resetStore()
     }
   }
 })

@@ -13,7 +13,7 @@ const accountStore = useAccountStore()
 
 <template>
 <div class="easyarena-home-main">
-  <a-row type="flex" justify="space-between">
+  <a-row v-if="accountStore.account" type="flex" justify="space-between">
     <span>Xin chào <span class="fullname">{{ accountStore.account.fullname }}</span></span>
   </a-row>
 </div>

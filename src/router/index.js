@@ -30,7 +30,12 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   // 404 page must be placed at the end !!!
-  { path: '/:pathMatch(.*)*', redirect: '/404', hidden: true }
+  { 
+    path: '/:pathMatch(.*)*',
+    name: 'WrongAddress',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const createCustomRouter = () => createRouter({
@@ -40,11 +45,6 @@ const createCustomRouter = () => createRouter({
 })
 
 const router = createCustomRouter()
-
-export function resetRouter() {
-  const newRouter = createCustomRouter()
-  router.matcher = newRouter.matcher // reset router
-}
 
 export default router
 
