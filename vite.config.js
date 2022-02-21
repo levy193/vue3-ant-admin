@@ -6,15 +6,14 @@ import eslintPlugin from 'vite-plugin-eslint'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' 
 import path from 'path'
 
-Components({
-  resolvers: [
-    AntDesignVueResolver()
-  ]
-})
-
 export default defineConfig({
   plugins: [
     vue(),
+    Components({
+      resolvers: [
+        AntDesignVueResolver()
+      ]
+    }),
     eslintPlugin(),
     createSvgIconsPlugin({
       iconDirs: [path.resolve(process.cwd(), 'src/icons')],

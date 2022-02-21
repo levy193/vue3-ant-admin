@@ -4,6 +4,7 @@
         "browserify",
         "browserslist",
         "Pinia",
+        "popconfirm",
         "sider",
         "unplugin",
         "vite"

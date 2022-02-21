@@ -19,12 +19,20 @@ const symbolId = computed(() => `#${props.prefix}-${props.name}`)
 </script>
 
 <template>
-  <svg aria-hidden="true" class="svg-icon">
+  <svg
+    aria-hidden="true"
+    class="svg-icon"
+  >
     <use :href="symbolId" :fill="color" />
   </svg>
 </template>
 
 <style lang="scss" scoped>
+.ant-btn {
+  .svg-icon {
+    vertical-align: -0.125em;
+  }
+}
 .svg-icon {
   width: 1em;
   height: 1em;

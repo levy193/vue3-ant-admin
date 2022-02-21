@@ -4,7 +4,6 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAccountStore } from '@/store/account'
 import {
   UserOutlined,
-  DownOutlined,
   LogoutOutlined,
   DesktopOutlined
 } from '@ant-design/icons-vue'
@@ -29,9 +28,9 @@ const logout = () => {
       <a-typography-title
         v-if="get(route, 'meta.pageTitle')"
         :level="4"
-        style="margin: 0"
+        style="margin: 6px"
       >
-        <svg-icon name="paper-plane" color="#333" style="max-width: 14px; max-height: 14px; margin-right: 6px;"/>
+        <svg-icon name="paper-plane" color="#333" style="max-width: 12px; max-height: 12px; margin-right: 6px;"/>
         {{ route.meta.pageTitle }}
       </a-typography-title>
     </a-typography>
@@ -40,7 +39,6 @@ const logout = () => {
       <a-dropdown>
         <a @click.prevent style="color: #333">
           <img v-if="accountStore.account" :src="$filters.mediaURL(avatarHost, accountStore.account.avatar)" class="avatar" />
-          <DownOutlined />
         </a>
         <template #overlay>
           <a-menu>
@@ -67,6 +65,5 @@ const logout = () => {
 .avatar {
   height: 44px;
   border-radius: 50%;
-  padding-right: 6px;
 }
 </style>

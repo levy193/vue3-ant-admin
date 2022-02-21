@@ -9,13 +9,11 @@ import '@/styles/index.scss'
 import App from './App.vue'
 import router from './router'
 import * as filters from './filters'
-import Antd from 'ant-design-vue'
 
 import './permission'
 import 'virtual:svg-icons-register'
 
 const app = Vue.createApp(App)
-app.use(Antd)
 app.use(createPinia())
 app.use(router)
 

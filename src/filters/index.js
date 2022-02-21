@@ -3,6 +3,10 @@ import moment from 'moment'
 import { useAccountStore } from '@/store/account'
 
 export function mediaURL(host, url) {
+  if (!url) {
+    return ''
+  }
+
   const accountStore = useAccountStore()
   host = host || accountStore.app.mediaHost
   if (!url.startsWith('http')) {

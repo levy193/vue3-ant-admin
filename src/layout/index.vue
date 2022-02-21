@@ -10,7 +10,7 @@ import Header from './Header.vue'
       <a-layout>
         <Header />
         <a-layout-content>
-          <div :style="{ padding: '12px', minHeight: 'calc(100%)' }">
+          <div :style="{ padding: '16px', minHeight: 'calc(100%)' }">
             <router-view />
           </div>
         </a-layout-content>

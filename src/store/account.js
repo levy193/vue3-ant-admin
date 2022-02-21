@@ -3,7 +3,7 @@ import * as userApi from '@/api/account'
 import { setToken, removeToken, setAppId, removeAppId } from '@/utils/cookie'
 import _ from 'lodash'
 import config from '@/config'
-import { compositeGetApi } from '@/api/composite'
+import * as compositeAPI from '@/api/composite'
 import generateDynamicRouter from '@/router/generate'
 import { constantRoutes } from '@/router'
 import { useCompositeStore } from './composite'
@@ -34,7 +34,9 @@ export const useAccountStore = defineStore({
       })
 
       asyncRoutes.forEach(route => {
-        router.removeRoute(route.name)
+        if (router.hasRoute(route.name)) {
+          router.removeRoute(route.name)
+        }
       })
     },
 
@@ -84,7 +86,7 @@ export const useAccountStore = defineStore({
         return []
       }
 
-      const appRolesRes = await compositeGetApi({
+      const appRolesRes = await compositeAPI.getData({
         appId: 'easy-admin',
         query: {
           _type: 'find',
