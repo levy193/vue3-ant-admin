@@ -12,33 +12,6 @@ const accountStore = useAccountStore()
 const compositeStore = useCompositeStore()
 const route = useRoute()
 
-// Define variables
-const dynamicComponents = {
-  DynamicList
-}
-
-const config = ref({
-  component: 'DynamicList',
-  models: [],
-  model: '',
-  state: '',
-  query: {},
-  api: {},
-  functions: {},
-  filters: [],
-  listProps: [],
-  formProps: {}
-})
-const loading = ref(false)
-const dataState = config.value.state || config.value.model
-const dataPaginationState = dataState + '_pagination'
-let action = ref(null)
-let formTemp = ref(null)
-const formDialog = ref({
-  visible: false,
-  type: null
-})
-
 const loadData = async () => {
   loading.value = true
   await _getCompositeData({
@@ -133,7 +106,7 @@ const handleAction = (_action, _data) => {
     })
   }
 
-  formTemp.value = {
+  formData.value = {
     message: true,
     data: {
       appId: accountStore.appId,
@@ -141,6 +114,7 @@ const handleAction = (_action, _data) => {
       body
     },
     store: {
+      state: dataState,
       method: action.value.name,
       matchField: '_id'
     }
@@ -148,15 +122,46 @@ const handleAction = (_action, _data) => {
 }
 
 const processForm = async () => {
-  await compositeStore.process(formTemp)
+  await compositeStore.process(formData.value)
   closeFormDialog()
 }
+
+const updateFormData = (key, value) => {
+  formData.value.data.body[key] = value
+}
+
+// Define variables
+const dynamicComponents = {
+  DynamicList
+}
+
+const config = ref({
+  component: 'DynamicList',
+  models: [],
+  model: '',
+  state: '',
+  query: {},
+  api: {},
+  functions: {},
+  filters: [],
+  listProps: [],
+  formProps: {}
+})
+const loading = ref(false)
+let action = ref(null)
+let formData = ref(null)
+const formDialog = ref({
+  visible: false,
+  type: null
+})
 
 const pageConfig = await import(`../${accountStore.appId}/dynamic/${route.path}.js`)
 const viewConfig = pageConfig.default.view
 Object.keys(viewConfig).forEach(k => {
   config.value[k] = viewConfig[k]
 })
+const dataState = config.value.state || config.value.model
+const dataPaginationState = dataState + '_pagination'
 
 await loadData()
 </script>
@@ -185,8 +190,12 @@ await loadData()
     />
 
     <dynamic-form
+      v-if="formData && formData.data"
       :dialog="formDialog"
       :config="config"
+      :data="formData.data.body"
+      @update:data="updateFormData"
+      @process="processForm"
       @cancel="closeFormDialog"
     />
   </div>

@@ -115,7 +115,15 @@ export default {
     formProps: [{
       name: 'appCodes',
       label: 'Ứng dụng',
-      type: 'text',
+      type: 'select',
+      mode: 'multiple',
+      key: '_id',
+      value: '_id',
+      display: 'title',
+      options: [{
+        _id: 'easy-class',
+        title: 'Easy Class'
+      }],
       span: 12
     }, {
       name: 'code',
@@ -172,7 +180,7 @@ export default {
       type: 'text-editor',
       span: 24
     }, {
-      name: 'public',
+      name: 'publish',
       label: 'Phát hành',
       type: 'boolean',
       span: 24

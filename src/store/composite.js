@@ -89,7 +89,8 @@ export const useCompositeStore = defineStore({
 
       if (!payload.noCommit) {
         if (['post', 'delete', 'put'].includes(method)) {
-          response = await compositeAPI.get({
+          response = await compositeAPI.getData({
+            appId: payload.data.appId,
             query: Object.assign({}, payload.data.query, {
               _type: 'findOne',
               _id: response.data._id || payload.data.query._id || payload.data.body._id
