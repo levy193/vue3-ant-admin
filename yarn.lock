@@ -248,6 +248,13 @@
     core-js "^3.15.1"
     nanopop "^2.1.0"
 
+"@tinymce/tinymce-vue@^4.0.6":
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-vue/-/tinymce-vue-4.0.6.tgz#8744d3b5c6e07eff0a037301da0225f0d49a038e"
+  integrity sha512-qZ6tC1v58bILOYFnYxBgDCtryDYG60TO0Fiio8nBoycxcyafMnDrDQuXaSTGDXwZ/AOcQ0ZS1CYvnEFdG6S2tg==
+  dependencies:
+    tinymce "^5.5.0"
+
 "@trysound/sax@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
@@ -3099,6 +3106,11 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
+
+tinymce@^5.5.0:
+  version "5.10.3"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.3.tgz#9485cf00159fd70c4948cb5e9dd49bce2a775899"
+  integrity sha512-O59ssHNnujWvSk5Gt8hIGrdNCMKVWVQv9F8siAgLTRgTh0t3NDHrP1UlLtCxArUi9DPWZvlBeUz8D5fJTu7vnA==
 
 tmp@^0.0.33:
   version "0.0.33"

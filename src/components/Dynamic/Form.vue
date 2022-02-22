@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { useCompositeStore } from '@/store/composite'
 import MediaManager from '@/components/MediaManager/index.vue'
 import moment from 'moment'
+import Tinymce from '@/components/Tinymce/index.vue'
 
 const props = defineProps({
   dialog: Object({
@@ -16,12 +17,14 @@ const props = defineProps({
 let formData = ref({})
 let mediaDialog = ref(false)
 let selectedProp = ref({})
+const formKey = ref(null)
 
 watch(
   () => props.dialog.visible,
   (visible) => {
     if (visible) {
       formData.value = _.cloneDeep(props.data)
+      formKey.value = 'form-id-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
       props.config.formProps.forEach(prop => {
         if (['datetime', 'date'].includes(prop.type)) {
           if (formData.value[prop.name]) {
@@ -104,6 +107,12 @@ const resetChildWhenSelectParentSelect = (prop) => {
   resetChildWhenSelectParentSelect(props.config.formProps[index])
 }
 
+const emitTextEditorData = (prop) => {
+  return value => {
+    emits('update:data', prop, value)
+  }
+}
+
 const emitData = (prop, $event) => {
   if (['text', 'number', 'password', 'textarea', 'image', 'video', 'audio', 'file'].includes(prop.type)) {
     emits('update:data', prop.name, $event.target.value)
@@ -168,6 +177,17 @@ const emitData = (prop, $event) => {
               :rows="prop.rows"
             />
 
+            <tinymce
+              v-if="['text-editor'].includes(prop.type)"
+              v-model:value="formData[prop.name]"
+              :id="`${prop.name}-${formKey}`"
+              :key="`${prop.name}-${formKey}`"
+              :menubar="prop.menubar"
+              :toolbar="prop.toolbar"
+              :height="prop.height || 300"
+              v-on="{input: emitTextEditorData(prop.name)}"
+            />
+
             <a-select
               v-if="['select'].includes(prop.type)"
               v-model:value="formData[prop.name]"
@@ -195,7 +215,6 @@ const emitData = (prop, $event) => {
               v-model:value="formData[prop.name]"
               :show-time="prop.type === 'datetime'"
               :placeholder="prop.placeholder || 'Chọn ngày'"
-              :disabled="prop.blockeditable && formData._id"
               @change="emitData(prop, $event)"
             />
 

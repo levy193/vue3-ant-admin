@@ -6,6 +6,7 @@
         "Pinia",
         "popconfirm",
         "sider",
+        "tinymce",
         "unplugin",
         "vite"
     ]
