@@ -64,17 +64,13 @@ const uploadFile = async () => {
 
     removeFileUpload()
 
-    notification.info({
+    notification.success({
       message: 'Thành công!',
       description: 'Tải tệp tin thành công.'
     })
   } catch (error) {
     uploadLoading.value = false
     uploadProgress.value = 0
-    notification.error({
-      message: 'Oops!',
-      description: 'Tải tệp tin thất bại.'
-    })
   }
 }
 

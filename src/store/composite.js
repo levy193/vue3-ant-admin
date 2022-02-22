@@ -6,8 +6,8 @@ import _ from 'lodash'
 
 const getTitleOfMethod = (method) => {
   const map = {
-    'create': 'Tạo mới',
-    'update': 'Cập nhật',
+    'post': 'Tạo mới',
+    'put': 'Cập nhật',
     'delete': 'Xóa',
     'confirm': 'Xác nhận',
     'get': 'Tải dữ liệu'
@@ -82,7 +82,8 @@ export const useCompositeStore = defineStore({
       let response = await compositeAPI[api](payload.data)
 
       if (payload.message) {
-        notification.info({
+        notification.success({
+          message: 'Thành công',
           description: _.isString(payload.message) ? payload.message : `${getTitleOfMethod(method)} thành công`
         })
       }
