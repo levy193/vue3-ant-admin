@@ -5,6 +5,7 @@ const accountStore = useAccountStore()
 
 <style lang="scss">
 .easyarena-home-main {
+  padding: 14px;
   .fullname {
     font-weight: bold
   }

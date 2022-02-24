@@ -1,8 +1,8 @@
 <script setup>
 import _ from 'lodash'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import moment from 'moment'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAccountStore } from '@/store/account'
 import { useCompositeStore } from '@/store/composite'
 import DynamicList from '@/components/Dynamic/List.vue'
@@ -11,6 +11,7 @@ import DynamicForm from '@/components/Dynamic/Form.vue'
 const accountStore = useAccountStore()
 const compositeStore = useCompositeStore()
 const route = useRoute()
+const router = useRouter()
 
 const loadData = async () => {
   loading.value = true
@@ -85,6 +86,17 @@ const closeFormDialog = () => {
 }
 
 const handleAction = (_action, _data) => {
+  // easy-arena:question
+  if (_action.name === 'easy-arena:question') {
+    router.push({
+      name: 'EasyArena:ContestQuestion',
+      query: {
+        contestId: _data._id
+      }
+    })
+    return
+  }
+
   action.value = _action
 
   // Open form dialog
@@ -163,11 +175,26 @@ Object.keys(viewConfig).forEach(k => {
 const dataState = config.value.state || config.value.model
 const dataPaginationState = dataState + '_pagination'
 
-await loadData()
+onMounted(async () => {
+  await loadData()
+
+  if (config.value.models && config.value.models.length > 0) {
+    config.value.models.forEach(model => {
+      _getCompositeData({
+        type: 'find',
+        model: model.name,
+        state: model.state,
+        query: {
+          _sort: model.sort
+        }
+      })
+    })
+  }
+})
 </script>
 
 <template>
-  <div class="dynamic-list-template">
+  <div class="dynamic-list-template" style="padding: 14px;">
     <component
       :is="dynamicComponents[config.component]"
       :loading="loading"

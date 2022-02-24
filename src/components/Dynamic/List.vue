@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons-vue'
 import SvgIcon from '../Icon/SvgIcon.vue'
 import AppTags from '@/components/Dynamic/templates/AppTags.vue'
+import _ from 'lodash'
 
 const dynamicTemplate = {
   AppTags
@@ -120,7 +121,8 @@ const selectOptions = select => {
             </template>
 
             <template v-if="['text'].includes(prop.type)">
-              {{ prop.filter ? $filters[prop.filter.name](record[prop.name], ...prop.filter.vars)  :record[prop.name] }}
+              <span v-if="!prop.key">{{ prop.filter ? $filters[prop.filter.name](record[prop.name], ...prop.filter.vars)  : record[prop.name] }}</span>
+              <span v-else>{{ _.get(record[prop.name], prop.key) || '' }}</span>
             </template>
 
             <template v-if="['boolean'].includes(prop.type)">

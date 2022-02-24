@@ -1,6 +1,9 @@
 <script setup>
+import { useRoute } from 'vue-router'
 import SideBar from './SideBar/index.vue'
 import Header from './Header.vue'
+
+const route = useRoute()
 </script>
 
 <template>
@@ -10,9 +13,7 @@ import Header from './Header.vue'
       <a-layout>
         <Header />
         <a-layout-content>
-          <div :style="{ padding: '16px', minHeight: 'calc(100%)' }">
-            <router-view />
-          </div>
+          <router-view :key="route.fullPath" />
         </a-layout-content>
         <a-layout-footer style="text-align: center">
           Easy Group ©2019 Created by Easy Group

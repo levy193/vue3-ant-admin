@@ -114,6 +114,10 @@ const emitTextEditorData = (prop) => {
 }
 
 const emitData = (prop, $event) => {
+  if (!$event) {
+    return
+  }
+  
   if (['text', 'number', 'password', 'textarea', 'image', 'video', 'audio', 'file'].includes(prop.type)) {
     emits('update:data', prop.name, $event.target.value)
     return
@@ -127,10 +131,10 @@ const emitData = (prop, $event) => {
       emits('update:data', prop.name, $event.target.checked)
       break
     case 'date':
-      emits('update:data', prop.name, $event.format('DD-MM-YYYY'))
+      emits('update:data', prop.name, $event.toDate())
       break
     case 'datetime':
-      emits('update:data', prop.name, $event.format('DD-MM-YYYY'))
+      emits('update:data', prop.name, $event.toDate())
       break
   }
 }

@@ -58,3 +58,32 @@ export function memorySize(a) {
   const e = Math.floor(Math.log(a) / Math.log(c))
   return parseFloat((a / Math.pow(c, e)).toFixed(b)) + ' ' + d[e]
 }
+
+export function randomKey(prefix) {
+  return `${prefix}-` + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
+}
+
+export function easyArenaQuestionTypeFilter(t) {
+  const map = {
+    MultiChoice: 'Trắc nghiệm',
+    ShortAnswer: 'Điền đáp án đúng',
+    StringSorting: 'Sắp xếp chữ cái, từ',
+    Classification: 'Phân loại',
+    Speaking: 'Phát âm',
+    UnderlineWord: 'Gạch chân',
+    Matching: 'Nối đáp án đúng',
+    WordSearch: 'Tìm ô chữ'
+  }
+
+  return map[t]
+}
+
+export function easyArenaContestGroup(v) {
+  const map = [
+    'TH',
+    'THCS',
+    'THPT'
+  ]
+
+  return map[v]
+}

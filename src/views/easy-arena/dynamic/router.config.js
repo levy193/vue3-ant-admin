@@ -1,4 +1,5 @@
 export default [
   'event/index',
-  'event/list'
+  'event/list',
+  'event/contest'
 ]
