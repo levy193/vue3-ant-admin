@@ -178,7 +178,7 @@ export default {
       },
       {
         name: 'name',
-        label: 'Tên sự kiện',
+        label: 'Tên cuộc thi',
         type: 'text',
         span: 12
       },

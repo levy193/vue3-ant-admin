@@ -23,7 +23,7 @@ watch(
   () => props.dialog.visible,
   (visible) => {
     if (visible) {
-      formData.value = _.cloneDeep(props.data)
+      formData.value = _.cloneDeep(props.data) || {}
       formKey.value = 'form-id-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
       props.config.formProps.forEach(prop => {
         if (['datetime', 'date'].includes(prop.type)) {
@@ -117,7 +117,7 @@ const emitData = (prop, $event) => {
   if (!$event) {
     return
   }
-  
+
   if (['text', 'number', 'password', 'textarea', 'image', 'video', 'audio', 'file'].includes(prop.type)) {
     emits('update:data', prop.name, $event.target.value)
     return

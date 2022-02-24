@@ -108,7 +108,7 @@ const handleAction = (_action, _data) => {
     width: action.value.width
   }
 
-  const body = action.value.name === 'create' ? initFormData() : _.cloneDeep(_data)
+  const body = action.value.name === 'post' ? initFormData() : _.cloneDeep(_data)
   const query = Object.assign({}, config.value.query, {
     _model: config.value.model
   })

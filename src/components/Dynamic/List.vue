@@ -85,7 +85,7 @@ const selectOptions = select => {
       <a-space>
         <a-button
           type="primary"
-          @click.prevent="$emit('handle', { name: 'create', formTitle: 'Tạo mới' })"
+          @click.prevent="$emit('handle', { name: 'post', formTitle: 'Tạo mới' })"
         >
           <PlusOutlined />
         </a-button>
