@@ -94,6 +94,7 @@ const handleAction = (_action, _data) => {
         contestId: _data._id
       }
     })
+
     return
   }
 

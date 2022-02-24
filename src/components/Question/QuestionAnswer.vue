@@ -2,7 +2,6 @@
 import _ from 'lodash'
 import { ref, watch } from 'vue'
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
-import { preview } from 'vite'
 
 const props = defineProps({
   answers: {
@@ -71,9 +70,9 @@ const handleUpdateClassificationAnswer = (field) => {
 }
 
 const handleSelectUnderlineWordTag = (rightIndex) => {
-  // if (props.preview) {
-  //   return
-  // }
+  if (props.preview) {
+    return
+  }
 
   const index = _.findIndex(rightTemp.value, v => {
     return v === rightIndex
