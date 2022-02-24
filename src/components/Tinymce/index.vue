@@ -65,7 +65,7 @@ const handlerChange = (event, editor) => {
         height,
         forced_root_block: false,
         rootBlock: false,
-        end_container_on_empty_block: true,
+        end_container_on_empty_block: false,
         powerpaste_word_import: 'clean',
         code_dialog_height: 450,
         code_dialog_width: 1000,

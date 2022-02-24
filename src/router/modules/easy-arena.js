@@ -21,7 +21,8 @@ export default [{
     hidden: true,
     meta: {
       title: 'Câu hỏi',
-      pageTitle: 'Câu hỏi'
+      pageTitle: 'Câu hỏi',
+      activeMenu: '/event/contest'
     },
     component: () => import('@/views/easy-arena/ContestQuestion.vue')
   }]
