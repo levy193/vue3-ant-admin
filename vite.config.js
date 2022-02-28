@@ -4,10 +4,13 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import vue from '@vitejs/plugin-vue'
 import eslintPlugin from 'vite-plugin-eslint'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' 
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
 export default defineConfig({
+  server: {
+    port: 8080
+  },
   plugins: [
     vue(),
     AutoImport({
